@@ -3,19 +3,180 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --foreground-rgb: 255, 255, 255;
+  --background-rgb: 10, 10, 10;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.7; }
+}
+
+.animate-twinkle {
+  animation: twinkle 4s ease-in-out infinite;
+}
+
+@keyframes float-cluster {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(-10px, -10px) rotate(5deg); }
+}
+
+.animate-float-cluster {
+  animation: float-cluster 8s ease-in-out infinite;
+}
+
+@keyframes border-glow {
+  0%, 100% {
+    opacity: 0;
+    transform: rotate(0deg);
+  }
+  25% {
+    opacity: 0.3;
+    transform: rotate(90deg);
+  }
+  50% {
+    opacity: 0.5;
+    transform: rotate(180deg);
+  }
+  75% {
+    opacity: 0.3;
+    transform: rotate(270deg);
+  }
+}
+
+.animate-border-glow {
+  animation: border-glow 4s linear infinite;
+  filter: blur(4px);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+@keyframes border-shine {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-border-shine {
+  background-size: 200% 100%;
+  animation: border-shine 4s ease infinite;
+}
+
+@keyframes border-trace {
+  0%, 100% {
+    background: linear-gradient(90deg, transparent 50%, transparent 50%),
+                linear-gradient(90deg, transparent 50%, transparent 50%),
+                linear-gradient(0deg, transparent 50%, transparent 50%),
+                linear-gradient(0deg, transparent 50%, transparent 50%);
+    background-repeat: no-repeat;
+    background-size: 100% 2px, 100% 2px, 2px 100%, 2px 100%;
+    background-position: 0 0, 0 100%, 0 0, 100% 0;
+  }
+  25% {
+    background: linear-gradient(90deg, #8B5CF6 50%, #3B82F6 50%),
+                linear-gradient(90deg, transparent 50%, transparent 50%),
+                linear-gradient(0deg, transparent 50%, transparent 50%),
+                linear-gradient(0deg, transparent 50%, transparent 50%);
+    background-repeat: no-repeat;
+    background-size: 100% 2px, 100% 2px, 2px 100%, 2px 100%;
+    background-position: 100% 0, 0 100%, 0 0, 100% 0;
+  }
+  50% {
+    background: linear-gradient(90deg, #8B5CF6 50%, #3B82F6 50%),
+                linear-gradient(90deg, #8B5CF6 50%, #3B82F6 50%),
+                linear-gradient(0deg, transparent 50%, transparent 50%),
+                linear-gradient(0deg, transparent 50%, transparent 50%);
+    background-repeat: no-repeat;
+    background-size: 100% 2px, 100% 2px, 2px 100%, 2px 100%;
+    background-position: 100% 0, 0 100%, 0 100%, 100% 0;
+  }
+  75% {
+    background: linear-gradient(90deg, #8B5CF6 50%, #3B82F6 50%),
+                linear-gradient(90deg, #8B5CF6 50%, #3B82F6 50%),
+                linear-gradient(0deg, #8B5CF6 50%, #3B82F6 50%),
+                linear-gradient(0deg, transparent 50%, transparent 50%);
+    background-repeat: no-repeat;
+    background-size: 100% 2px, 100% 2px, 2px 100%, 2px 100%;
+    background-position: 100% 0, 0 100%, 0 100%, 100% 100%;
+  }
+}
+
+.animate-border-trace {
+  animation: border-trace 3s linear infinite;
+  filter: blur(1px);
+}
+
+@keyframes border-dot {
+  0% {
+    transform: rotate(0deg) translateX(calc(100% + 1rem));
+  }
+  100% {
+    transform: rotate(360deg) translateX(calc(100% + 1rem));
+  }
+}
+
+.animate-border-dot {
+  animation: border-dot 3s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes highlight-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px 0 rgba(139, 92, 246, 0.5);
+    border-color: rgba(139, 92, 246, 0.8);
+  }
+}
+
+.animate-highlight-pulse {
+  animation: highlight-pulse 1s cubic-bezier(0.4, 0, 0.2, 1) 2;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-20px, 20px); }
+}
+
+@keyframes float-normal {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(20px, -20px); }
+}
+
+.animate-float-slow {
+  animation: float-slow 15s ease-in-out infinite;
+}
+
+.animate-float-normal {
+  animation: float-normal 12s ease-in-out infinite;
+}
+
+.error-message {
+  color: #ff4d4d;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.error-message.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
